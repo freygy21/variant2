@@ -65,6 +65,9 @@ class Card:
     def status(self):
         return self._status
 
+    def describe(self):
+        return f"{self.card_id}:{self.status}:{self.card_type}"
+
     def activate(self):
         if self.status != "NEW":
             raise DomainError("INVALID_STATE")
