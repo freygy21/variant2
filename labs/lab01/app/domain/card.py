@@ -6,7 +6,16 @@ from app.support.errors import DomainError
 
 
 class Card:
-    def __init__(self, card_id, customer_id, account_id, expiration_date, card_type, online_enabled=True, contactless_enabled=True):
+    def __init__(
+        self,
+        card_id,
+        customer_id,
+        account_id,
+        expiration_date,
+        card_type,
+        online_enabled=True,
+        contactless_enabled=True,
+    ):
         identifier(card_id)
         identifier(customer_id)
         identifier(account_id)
@@ -14,6 +23,7 @@ class Card:
         choice(card_type, ("STANDARD", "VIRTUAL"), "INVALID_CATEGORY")
         boolean(online_enabled)
         boolean(contactless_enabled)
+
         self._card_id = card_id
         self._customer_id = customer_id
         self._account_id = account_id
@@ -56,16 +66,22 @@ class Card:
         return self._status
 
     def activate(self):
-        raise NotImplementedError("ЛР1: завершите Card.activate")
+        if self.status != "NEW":
+            raise DomainError("INVALID_STATE")
+        self._status = "ACTIVE"
 
     def block(self):
-        raise NotImplementedError("ЛР1: завершите Card.block")
+        if self.status != "ACTIVE":
+            raise DomainError("INVALID_STATE")
+        self._status = "BLOCKED"
 
     def unblock(self):
-        raise NotImplementedError("ЛР1: завершите Card.unblock")
+        if self.status != "BLOCKED":
+            raise DomainError("INVALID_STATE")
+        self._status = "ACTIVE"
 
     def close(self):
-        if self.status not in ('NEW', 'ACTIVE', 'BLOCKED'):
+        if self.status not in ("NEW", "ACTIVE", "BLOCKED"):
             raise DomainError("INVALID_STATE")
         self._status = "CLOSED"
 
@@ -74,4 +90,13 @@ class Card:
         return as_of > self.expiration_date
 
     def availability(self, as_of):
-        raise NotImplementedError("ЛР1: завершите Card.availability")
+        date_only(as_of)
+
+        if self.status != "ACTIVE":
+            code = "NOT_ACTIVE" if self.status == "NEW" else self.status
+            return CheckResult(False, "CARD_" + code)
+
+        if self.is_expired(as_of):
+            return CheckResult(False, "CARD_EXPIRED")
+
+        return CheckResult(True)
