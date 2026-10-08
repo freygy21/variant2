@@ -1,0 +1,36 @@
+{
+  "course": "unipay-oop",
+  "files": {
+    ".github/workflows/lab02.yml": "25c3770fa94b36a4679c253447aba9ab8d16fd6cdbf5a193cdeb41accf9e9bb0",
+    "labs/lab02/REFERENCE.md": "1552d8230ef52fa91b2c440fd516969a0f39e7a4c829be8ed4afc7571455f9f1",
+    "labs/lab02/STARTER-STATE.md": "fd7be4353c798066630abae6a06eedc7016130823169ad4ae6aeb27d0e277608",
+    "labs/lab02/TASK.md": "866f4a7eb912e19b62abeb5e6c4992aae11f28ba07223dec14612fb8ebc76b49",
+    "labs/lab02/app/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "labs/lab02/app/api.py": "b7bc591ae5e411a3c39a6a443d982d5ba78d8785b626ba9c7c25d56f7c965b13",
+    "labs/lab02/app/domain/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "labs/lab02/app/domain/card.py": "fc02337b99a78a0e8ca90352389d836f622f0fa52dae29326e3bbc4cee64a176",
+    "labs/lab02/app/services/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "labs/lab02/app/services/assembly.py": "2d1ed159c158f6fcf6f7f7c96edb31d6beeafa444aa577824e7340e3f8350043",
+    "labs/lab02/app/services/card_service.py": "7535bc11cc7feb231ee8ae63b51d1c0add109e2055f9df2d94c7b6136c4b3249",
+    "labs/lab02/app/support/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "labs/lab02/app/support/errors.py": "ce3b7a67a344a59c282e6dce34f178dd047466712697eaa8dbd9cace93fabaf3",
+    "labs/lab02/app/support/money.py": "f498773c7642b2a19682b8d71b08cf8f049131ca5e363a2ac111825905b15f5c",
+    "labs/lab02/app/support/types.py": "752c2a832a236cb570290a926bc883aac51d13fd7f8b38b6c7ae674e72b802fa",
+    "labs/lab02/bonus_tests/test_bonus.py": "b75465d305aec0cecdd72c739301b4f9d72b42f5705ecc819d86f00bded27030",
+    "labs/lab02/conftest.py": "155c516061e0bfbe0f30e4215d6098c203a0fa0f7201afd88fe9de9b1459bddc",
+    "labs/lab02/protected-files.json": "64b8aca34152414c0623d3c212a72d27ba947ad5d06228661b2bc8029934d3d3",
+    "labs/lab02/pytest.ini": "0a7768bbb53a890047c800347d2a817bbcc0294dfa4f48b8457954b5d75a6f5a",
+    "labs/lab02/tests/test_contract.py": "0f77c94ff83d3b0fb4306d15066bcb4f5e25deb323816e8cc05a6d1e01b31cd3",
+    "labs/lab02/tests/test_review_contract.py": "5f27bcdad32571477e5dcd0d3b362f433242cbfc1fe38ac3dd7ed0a745eba2e0"
+  },
+  "format": 1,
+  "lab": 2,
+  "runtime_sha256": {
+    ".gitattributes": "d60f352d0db1404c70afb4bb8b2ca3fd1c610572aa40720e8a0b7baa7885418c",
+    "check.py": "13d78e782ae8486fd09b71adb8fe2d57b9555c17333cbaa233b2ebc504dfaa3a",
+    "requirements.txt": "693d97bdd0fb5283060c3efadf25a90d0c3b59be09b25fac59f5f1c68a1f993b"
+  },
+  "source_commit": "cffad3c640e8beddc9a7b531057d1bf2aaa17fff",
+  "source_tree": "997ce18b16d887b6a4e833f6fcf81cb812dbed1c",
+  "variant": "card"
+}
