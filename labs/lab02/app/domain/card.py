@@ -77,7 +77,7 @@ class Card:
 
     def is_expired(self, as_of):
         date_only(as_of)
-        return as_of >= self.expiration_date
+        return as_of > self.expiration_date
 
     def availability(self, as_of):
         if self.status != "ACTIVE":
@@ -85,3 +85,7 @@ class Card:
         if self.is_expired(as_of):
             return CheckResult(False, "CARD_EXPIRED")
         return CheckResult(True)
+
+    def remaining_days(self, as_of):
+        date_only(as_of)
+        return max(0, (self.expiration_date - as_of).days)
