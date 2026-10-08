@@ -53,17 +53,27 @@ class Card:
     def status(self):
         return self._status
 
+    
     def activate(self):
+        if self._status != "NEW":
+            raise DomainError("INVALID_STATE")
         self._status = "ACTIVE"
 
     def block(self):
+        if self._status != "ACTIVE":
+            raise DomainError("INVALID_STATE")
         self._status = "BLOCKED"
 
     def unblock(self):
+        if self._status != "BLOCKED":
+            raise DomainError("INVALID_STATE")
         self._status = "ACTIVE"
 
     def close(self):
+        if self._status == "CLOSED":
+            raise DomainError("INVALID_STATE")
         self._status = "CLOSED"
+
 
     def is_expired(self, as_of):
         date_only(as_of)
