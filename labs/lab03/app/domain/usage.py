@@ -31,3 +31,10 @@ class OnlineUsageRule(CardUsageRule):
         ):
             return CheckResult(False, "CARD_ONLINE_DISABLED")
         return CheckResult(True)
+
+
+class ContactlessUsageRule(CardUsageRule):
+    def check(self, entity, context):
+        if context.contactless and not entity.contactless_enabled:
+            return CheckResult(False, "CARD_CONTACTLESS_DISABLED")
+        return CheckResult(True)

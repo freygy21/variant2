@@ -1,5 +1,5 @@
 from app.domain.card import Card
-from app.domain.usage import AllowedCardTypeRule, OnlineUsageRule
+from app.domain.usage import AllowedCardTypeRule, OnlineUsageRule, ContactlessUsageRule
 from app.support.types import CheckResult, Repository
 from app.support.errors import DomainError
 
@@ -14,6 +14,7 @@ class CardService:
             self._rules = [
                 AllowedCardTypeRule({"STANDARD"}),
                 OnlineUsageRule(),
+                ContactlessUsageRule(),
             ]
 
     def register(self, entity):
