@@ -1,11 +1,20 @@
 from app.domain.card import Card
 from app.domain.usage import AllowedCardTypeRule, OnlineUsageRule
+from app.support.types import CheckResult, Repository
+from app.support.errors import DomainError
 
 
 class CardService:
     def __init__(self, repository, rules=()):
         self._repository = repository
-        self._rules = [AllowedCardTypeRule({"STANDARD"}), OnlineUsageRule()]
+
+        if rules:
+            self._rules = list(rules)
+        else:
+            self._rules = [
+                AllowedCardTypeRule({"STANDARD"}),
+                OnlineUsageRule(),
+            ]
 
     def register(self, entity):
         return self._repository.add(entity)
@@ -26,7 +35,23 @@ class CardService:
         self.get(key).close()
 
     def check(self, key, context):
-        raise NotImplementedError("ЛР3: реализуйте CardService.check по TASK.md")
+        entity = self.get(key)
+
+        availability = entity.availability(context.as_of)
+
+        if not availability.allowed:
+            return availability
+
+        for rule in self._rules:
+            result = rule.check(entity, context)
+
+            if not isinstance(result, CheckResult):
+                raise DomainError("INVALID_RESULT")
+
+            if not result.allowed:
+                return result
+
+        return CheckResult(True)
 
 
 def make_entity(*args, **kwargs):
@@ -50,8 +75,8 @@ def view(entity):
     }
 
 
-from app.support.types import Repository
-
-
 def new_service(repository=None):
-    return CardService(repository if repository is not None else Repository("card_id"))
+    return CardService(
+        repository if repository is not None
+        else Repository("card_id")
+    )
