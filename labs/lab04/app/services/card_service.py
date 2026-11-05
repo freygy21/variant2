@@ -17,27 +17,19 @@ class CardService:
 
     def activate(self, key):
         entity = self.get(key)
-        if entity.status not in ('NEW',):
-            raise DomainError("INVALID_STATE")
-        entity._status = "ACTIVE"
+        entity.activate()
 
     def block(self, key):
         entity = self.get(key)
-        if entity.status not in ('ACTIVE',):
-            raise DomainError("INVALID_STATE")
-        entity._status = "BLOCKED"
+        entity.block()
 
     def unblock(self, key):
         entity = self.get(key)
-        if entity.status not in ('BLOCKED',):
-            raise DomainError("INVALID_STATE")
-        entity._status = "ACTIVE"
+        entity.unblock()
 
     def close(self, key):
         entity = self.get(key)
-        if entity.status not in ('NEW', 'ACTIVE', 'BLOCKED'):
-            raise DomainError("INVALID_STATE")
-        entity._status = "CLOSED"
+        entity.close()
 
     def check(self, key, context):
         entity = self.get(key)
@@ -52,7 +44,7 @@ class CardService:
 
     def diagnostic(self, key):
         entity = self.get(key)
-        return f"{entity.card_id}:{entity.status}:{entity.card_type}"
+        return entity.describe()
 
 def make_entity(*args, **kwargs):
     return Card(*args, **kwargs)
