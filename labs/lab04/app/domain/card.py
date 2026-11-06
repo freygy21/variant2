@@ -79,7 +79,12 @@ class Card:
 
     def availability(self, as_of):
         if self.status != "ACTIVE":
-            return CheckResult(False, "CARD_" + ("NOT_ACTIVE" if self.status == "NEW" else self.status))
+            if self.status == "NEW":
+                error_code = "CARD_NOT_ACTIVE"
+            else:
+                error_code = "CARD_" + self.status
+
+            return CheckResult(False, error_code)
         if self.is_expired(as_of):
             return CheckResult(False, "CARD_EXPIRED")
         return CheckResult(True)
