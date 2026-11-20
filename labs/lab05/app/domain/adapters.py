@@ -6,4 +6,7 @@ class LegacyAdapter(CardUsageRule):
         self._legacy = legacy
 
     def check(self, entity, context):
-        return CheckResult(True) if self._legacy.allowed(entity.card_type) else CheckResult(False, "CARD_TYPE_DENIED")
+        if self._legacy.allowed(entity.card_type):
+            return CheckResult(True)
+        else:
+            return CheckResult(False, "CARD_TYPE_DENIED")
