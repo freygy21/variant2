@@ -6,4 +6,4 @@ class LegacyAdapter(CardUsageRule):
         self._legacy = legacy
 
     def check(self, entity, context):
-        raise NotImplementedError("Бонус: локальный адаптер")
+        return CheckResult(True) if self._legacy.allowed(entity.card_type) else CheckResult(False, "CARD_TYPE_DENIED")
