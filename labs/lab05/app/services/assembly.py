@@ -3,6 +3,12 @@ from app.support.types import Repository
 from app.domain.usage import AllowedCardTypeRule, OnlineUsageRule
 
 def build_service(repository=None, rules=None):
-    repository = repository if repository is not None else Repository("card_id")
-    rules = (AllowedCardTypeRule({"STANDARD"}), OnlineUsageRule()) if rules is None else rules
+    if repository is None:
+        repository = Repository("card_id")
+
+    if rules is None:
+        rules = (
+            AllowedCardTypeRule({"STANDARD"}),
+            OnlineUsageRule(),
+        )
     return CardService(repository, rules)

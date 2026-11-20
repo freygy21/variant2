@@ -39,10 +39,23 @@ class CardService:
         return CheckResult(True)
 
     def check_dates(self, card_id, dates):
-        return tuple((d, self.check(card_id, CardContext(d))) for d in dates)
+        results = []
+
+        for as_of in dates:
+            context = CardContext(as_of)
+            result = self.check(card_id, context)
+            results.append((as_of, result))
+
+        return tuple(results)
 
     def allowed_dates(self, card_id, dates):
-        return tuple(d for d, r in self.check_dates(card_id, dates) if r.allowed)
+        allowed = []
+
+        for as_of, result in self.check_dates(card_id, dates):
+            if result.allowed:
+                allowed.append(as_of)
+
+        return tuple(allowed)
 
 def make_entity(*args, **kwargs):
     return Card(*args, **kwargs)
